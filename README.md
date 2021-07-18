@@ -1,9 +1,9 @@
 # aws-glue-scala-spark-template
 
-AWS Glue で実行する Spark Script のSBTプロジェクトの Template です。
+AWS Glue の Spark Script の Template プロジェクトです。
 
-# Run on local
+## Run on local
 
 ```sh
-make spark-submit CLASS=HelloSpark
+make spark-submit CLASS=HelloSparkOnLocal
 ```
