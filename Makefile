@@ -9,5 +9,21 @@ deploy:
 
 REGION=ap-northeast-1
 create-bucket:
-    aws s3api create-bucket --bucket $(BUCKET) \
-        --region $(REGION) --create-bucket-configuration LocationConstraint=$(REGION)
+	aws s3api create-bucket --bucket $(BUCKET) \
+		--region $(REGION) --create-bucket-configuration LocationConstraint=$(REGION)
+
+create-job:
+	aws glue create-job \
+		--name hello-spark \
+		--role AWSGlueServiceRoleDefault \
+		--command '{ \
+		  "Name": "gluestreaming", \
+		  "ScriptLocation": "s3://$(BUCKET)/HelloSparkApp.scala" \
+		}' \
+		--region $(REGION) \
+		--output json \
+		--default-arguments '{ \
+		  "--job-language":"scala", \
+		  "--class":"HelloSparkApp" \
+		}' \
+		--endpoint https://glue.$(REGION).amazonaws.com
