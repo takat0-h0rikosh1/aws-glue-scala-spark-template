@@ -15,7 +15,8 @@ create-bucket:
 create-job:
 	aws glue create-job \
 		--name hello-spark \
-		--role AWSGlueServiceRoleDefault \
+		--role $(ROLE_NAME) \
+		--glue-version 2.0 \
 		--command '{ \
 		  "Name": "gluestreaming", \
 		  "ScriptLocation": "s3://$(BUCKET)/HelloSparkApp.scala" \
@@ -23,7 +24,18 @@ create-job:
 		--region $(REGION) \
 		--output json \
 		--default-arguments '{ \
-		  "--job-language":"scala", \
-		  "--class":"HelloSparkApp" \
+		  "--job-language": "scala", \
+		  "--class": "HelloSparkApp", \
+		  "--extra-jars": "s3://$(BUCKET)/app.jar", \
+		  "--Message": "HELLO SCALA SPARK ON GLUE!!!" \
 		}' \
 		--endpoint https://glue.$(REGION).amazonaws.com
+
+ROLE_NAME=aws-glue-scala-spark-template-role
+create-role:
+	aws iam create-role \
+		--role-name $(ROLE_NAME) \
+		--assume-role-policy-document file://glue-trust.json
+	aws iam attach-role-policy \
+		--role-name $(ROLE_NAME) \
+		--policy-arn arn:aws:iam::aws:policy/service-role/AWSGlueServiceRole
