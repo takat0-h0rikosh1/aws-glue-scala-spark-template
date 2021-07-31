@@ -18,7 +18,7 @@ create-job:
 		--role $(ROLE_NAME) \
 		--glue-version 2.0 \
 		--command '{ \
-		  "Name": "gluestreaming", \
+		  "Name": "glueetl", \
 		  "ScriptLocation": "s3://$(BUCKET)/HelloSparkApp.scala" \
 		}' \
 		--region $(REGION) \
