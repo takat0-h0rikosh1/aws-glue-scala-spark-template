@@ -1,7 +1,5 @@
 import Dependencies._
 
-ThisBuild / scalaVersion     := "2.11.12"
-
 lazy val root = (project in file("."))
   .settings(
     name := "aws-glue-scala-spark-template",
@@ -20,9 +18,8 @@ lazy val root = (project in file("."))
     ),
     libraryDependencies ++= Seq(
       "com.amazonaws"          % "AWSGlueETL" % "1.0.0"   % "provided",
-      "software.amazon.awssdk" % "glue"       % "2.16.84" % "provided",
-      "org.apache.spark"      %% "spark-core" % "2.4.7"   % "provided",
-      "org.apache.spark"      %% "spark-sql"  % "2.4.8"   % "provided"
+      "org.apache.spark"      %% "spark-core" % "2.4.3"   % "provided",
+      "org.apache.spark"      %% "spark-sql"  % "2.4.3"   % "provided"
     )
   )
 
