@@ -41,6 +41,6 @@ object StdoutPeople {
 
 }
 
-object HelloSparkOnLocal {
+object HelloSparkAppOnLocal {
   def main(args: Array[String]): Unit = StdoutPeople.run()
 }
